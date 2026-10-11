@@ -1,0 +1,276 @@
+/* ==========================================================================
+   MicroBooNE H5 Portalı — "Kraliyet" teması
+   Bordo (burgundy) + eski altın + fildişi. Bootstrap 5.3 üzerine ince katman.
+   ========================================================================== */
+
+:root {
+    --royal-wine:      #4A0D1C;   /* en koyu bordo — gezinme çubuğu */
+    --royal-burgundy:  #7B1830;   /* ana renk */
+    --royal-claret:    #9B2C42;   /* vurgu / hover */
+    --royal-rose:      #B4475E;
+    --royal-gold:      #C9A646;   /* eski altın */
+    --royal-gold-deep: #A8862E;
+    --royal-gold-soft: #EBDDB4;
+    --royal-plum:      #5B2A4E;
+    --royal-navy:      #1F2E4A;
+    --royal-teal:      #2F6F73;
+    --royal-ivory:     #FBF8F1;   /* sayfa zemini */
+    --royal-parchment: #F4EEE2;
+    --royal-ink:       #2B1B1F;   /* metin */
+    --royal-muted:     #6E5A5F;
+    --royal-line:      #E6DCCB;
+
+    --bs-body-bg: var(--royal-ivory);
+    --bs-body-color: var(--royal-ink);
+    --bs-body-font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bs-primary: var(--royal-burgundy);
+    --bs-primary-rgb: 123, 24, 48;
+    --bs-link-color: var(--royal-burgundy);
+    --bs-link-color-rgb: 123, 24, 48;
+    --bs-link-hover-color: var(--royal-claret);
+    --bs-link-hover-color-rgb: 155, 44, 66;
+    --bs-border-color: var(--royal-line);
+    --bs-secondary-color: var(--royal-muted);
+    --bs-focus-ring-color: rgba(123, 24, 48, .25);
+    --bs-border-radius: .55rem;
+}
+
+body {
+    background: var(--royal-ivory);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main { flex: 1 0 auto; }
+
+h1, h2, h3, h4, h5, .serif {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: .01em;
+    color: var(--royal-wine);
+}
+
+.text-gold { color: var(--royal-gold-deep) !important; }
+.text-burgundy { color: var(--royal-burgundy) !important; }
+.bg-ivory { background: var(--royal-ivory) !important; }
+.bg-parchment { background: var(--royal-parchment) !important; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86em; }
+
+/* ---------------------------------------------------------------- gezinme */
+.navbar-royal {
+    background: linear-gradient(90deg, var(--royal-wine) 0%, var(--royal-burgundy) 100%);
+    border-bottom: 3px solid var(--royal-gold);
+    box-shadow: 0 2px 14px rgba(74, 13, 28, .25);
+}
+.navbar-royal .navbar-brand {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 700;
+    font-size: 1.45rem;
+    color: #fff;
+    letter-spacing: .02em;
+}
+.navbar-royal .brand-mark { color: var(--royal-gold); margin-right: .25rem; }
+.navbar-royal .brand-sub { color: var(--royal-gold-soft); font-weight: 600; }
+.navbar-royal .nav-link {
+    color: rgba(255, 255, 255, .82);
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    padding-left: .8rem !important;
+    padding-right: .8rem !important;
+}
+.navbar-royal .nav-link:hover,
+.navbar-royal .nav-link:focus { color: #fff; }
+.navbar-royal .nav-link.active {
+    color: var(--royal-gold-soft);
+    border-bottom-color: var(--royal-gold);
+}
+.navbar-royal .dropdown-menu {
+    border: 1px solid var(--royal-gold-soft);
+    box-shadow: 0 10px 30px rgba(74, 13, 28, .18);
+}
+.dropdown-item.active, .dropdown-item:active { background: var(--royal-burgundy); }
+
+/* ---------------------------------------------------------------- sayfa başlığı */
+.page-header {
+    background:
+        radial-gradient(1200px 120px at 10% 0%, rgba(201, 166, 70, .16), transparent 70%),
+        var(--royal-parchment);
+    border-bottom: 1px solid var(--royal-line);
+    padding: 1.6rem 0 1.3rem;
+}
+.page-title { font-size: 2.1rem; margin: 0; }
+.page-title .bi { color: var(--royal-gold-deep); font-size: .85em; }
+.page-subtitle { color: var(--royal-muted); }
+
+.ornament {
+    display: flex; align-items: center; gap: .75rem;
+    color: var(--royal-gold-deep); margin: 2rem 0 1rem;
+    font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 1.35rem;
+}
+.ornament::before, .ornament::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--royal-gold) 50%, transparent);
+}
+
+/* ---------------------------------------------------------------- kartlar */
+.card {
+    border: 1px solid var(--royal-line);
+    border-radius: .7rem;
+    box-shadow: 0 1px 2px rgba(43, 27, 31, .04), 0 6px 18px rgba(43, 27, 31, .04);
+}
+.card-royal { border-top: 3px solid var(--royal-gold); }
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid var(--royal-line);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--royal-wine);
+}
+.card-header .small, .card-header small { font-family: var(--bs-body-font-family); font-weight: 400; }
+
+.stat-card { position: relative; overflow: hidden; }
+.stat-card .stat-icon {
+    width: 2.6rem; height: 2.6rem; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--royal-parchment); color: var(--royal-burgundy);
+    border: 1px solid var(--royal-gold-soft); font-size: 1.15rem;
+}
+.stat-card .stat-value {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2rem; font-weight: 700; color: var(--royal-wine); line-height: 1.1;
+}
+.stat-card .stat-label { color: var(--royal-muted); font-size: .88rem; font-weight: 600; letter-spacing: .03em; }
+.stat-card::after {
+    content: ""; position: absolute; right: -30px; bottom: -30px; width: 90px; height: 90px;
+    border-radius: 50%; border: 10px solid rgba(201, 166, 70, .12);
+}
+
+.chart-box { position: relative; width: 100%; }
+
+/* ---------------------------------------------------------------- düğmeler */
+.btn-primary {
+    --bs-btn-bg: var(--royal-burgundy);
+    --bs-btn-border-color: var(--royal-burgundy);
+    --bs-btn-hover-bg: var(--royal-claret);
+    --bs-btn-hover-border-color: var(--royal-claret);
+    --bs-btn-active-bg: var(--royal-wine);
+    --bs-btn-active-border-color: var(--royal-wine);
+    --bs-btn-disabled-bg: var(--royal-rose);
+    --bs-btn-disabled-border-color: var(--royal-rose);
+    --bs-btn-focus-shadow-rgb: 123, 24, 48;
+}
+.btn-outline-primary {
+    --bs-btn-color: var(--royal-burgundy);
+    --bs-btn-border-color: var(--royal-burgundy);
+    --bs-btn-hover-bg: var(--royal-burgundy);
+    --bs-btn-hover-border-color: var(--royal-burgundy);
+    --bs-btn-active-bg: var(--royal-wine);
+    --bs-btn-active-border-color: var(--royal-wine);
+    --bs-btn-focus-shadow-rgb: 123, 24, 48;
+}
+.btn-gold {
+    --bs-btn-color: var(--royal-wine);
+    --bs-btn-bg: var(--royal-gold);
+    --bs-btn-border-color: var(--royal-gold-deep);
+    --bs-btn-hover-color: var(--royal-wine);
+    --bs-btn-hover-bg: #D7B95E;
+    --bs-btn-hover-border-color: var(--royal-gold-deep);
+    --bs-btn-active-bg: var(--royal-gold-deep);
+    --bs-btn-active-color: #fff;
+    --bs-btn-focus-shadow-rgb: 201, 166, 70;
+    font-weight: 600;
+}
+.btn-outline-gold {
+    --bs-btn-color: var(--royal-gold-deep);
+    --bs-btn-border-color: var(--royal-gold);
+    --bs-btn-hover-color: var(--royal-wine);
+    --bs-btn-hover-bg: var(--royal-gold-soft);
+    --bs-btn-hover-border-color: var(--royal-gold);
+    --bs-btn-active-bg: var(--royal-gold);
+    --bs-btn-active-color: var(--royal-wine);
+}
+.btn-check:checked + .btn-outline-primary { background: var(--royal-burgundy); color: #fff; }
+
+/* ---------------------------------------------------------------- tablolar */
+.table-royal { --bs-table-hover-bg: rgba(201, 166, 70, .09); margin-bottom: 0; }
+.table-royal > thead th {
+    background: var(--royal-wine);
+    color: var(--royal-gold-soft);
+    font-weight: 600;
+    font-size: .84rem;
+    letter-spacing: .02em;   /* büyük harfe çevrilmez: Eν, GeV gibi gösterimler korunur */
+    border-bottom: 2px solid var(--royal-gold);
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.table-royal > thead th a { color: inherit; text-decoration: none; }
+.table-royal > thead th a:hover { color: #fff; }
+.table-royal > tbody td { vertical-align: middle; }
+.table-royal > tbody tr:nth-child(even) > td { background: rgba(244, 238, 226, .45); }
+.table-royal td.num, .table-royal th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-responsive { border-radius: .6rem; }
+
+/* ---------------------------------------------------------------- formlar */
+.form-control:focus, .form-select:focus {
+    border-color: var(--royal-claret);
+    box-shadow: 0 0 0 .2rem rgba(123, 24, 48, .15);
+}
+.form-check-input:checked { background-color: var(--royal-burgundy); border-color: var(--royal-burgundy); }
+.form-label { font-weight: 600; color: var(--royal-wine); font-size: .9rem; }
+.form-text { color: var(--royal-muted); }
+
+/* ---------------------------------------------------------------- rozet, ilerleme, sayfalama */
+.badge-gold { background: var(--royal-gold-soft); color: var(--royal-wine); border: 1px solid var(--royal-gold); }
+.badge-burgundy { background: var(--royal-burgundy); color: #fff; }
+.progress { height: 1.1rem; background: var(--royal-parchment); border: 1px solid var(--royal-line); }
+.progress-bar-royal {
+    background: linear-gradient(90deg, var(--royal-burgundy), var(--royal-claret) 60%, var(--royal-gold));
+}
+.pagination {
+    --bs-pagination-color: var(--royal-burgundy);
+    --bs-pagination-hover-color: var(--royal-wine);
+    --bs-pagination-hover-bg: var(--royal-parchment);
+    --bs-pagination-active-bg: var(--royal-burgundy);
+    --bs-pagination-active-border-color: var(--royal-burgundy);
+    --bs-pagination-focus-box-shadow: 0 0 0 .2rem rgba(123, 24, 48, .2);
+    margin-bottom: 0;
+}
+.nav-tabs .nav-link { color: var(--royal-muted); }
+.nav-tabs .nav-link.active { color: var(--royal-wine); border-top: 3px solid var(--royal-gold); font-weight: 600; }
+
+.alert-royal { background: #fff; border: 1px solid var(--royal-gold-soft); border-left: 4px solid var(--royal-gold); }
+
+/* ---------------------------------------------------------------- olay görüntüsü */
+.event-display {
+    background: radial-gradient(circle at 50% 30%, #2a1018 0%, #160709 100%);
+    border-radius: .6rem;
+    border: 1px solid #3b1520;
+    padding: .5rem;
+}
+.event-display .plane-label {
+    display: block; padding: .15rem .5rem .35rem;
+    color: var(--royal-gold); font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 1.15rem;
+    border-bottom: 1px solid rgba(201, 166, 70, .18); margin-bottom: .35rem;
+}
+.legend-dot { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .3rem; vertical-align: middle; }
+
+.kv dt { color: var(--royal-muted); font-weight: 500; font-size: .85rem; }
+.kv dd { font-variant-numeric: tabular-nums; margin-bottom: .35rem; }
+
+.empty-state {
+    text-align: center; padding: 3rem 1rem; color: var(--royal-muted);
+}
+.empty-state .bi { font-size: 2.6rem; color: var(--royal-gold); display: block; margin-bottom: .75rem; }
+
+/* ---------------------------------------------------------------- alt bilgi */
+.footer-royal {
+    background: var(--royal-wine);
+    color: rgba(255, 255, 255, .7);
+    border-top: 3px solid var(--royal-gold);
+    font-size: .85rem;
+    padding: 1.2rem 0;
+    margin-top: 2rem;
+}
+.footer-royal a { color: var(--royal-gold-soft); }

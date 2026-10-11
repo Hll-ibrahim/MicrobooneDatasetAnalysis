@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrapFive();
+
+        // Türkçe URL'ler: /olaylar/yeni, /olaylar/5/duzenle
+        Route::resourceVerbs([
+            'create' => 'yeni',
+            'edit' => 'duzenle',
+        ]);
     }
 }

@@ -1,4 +1,6 @@
 *
 !private/
 !public/
+!h5/
+!h5-tmp/
 !.gitignore
