@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GlossaryController;
 use App\Http\Controllers\H5FileController;
 use App\Http\Controllers\TableController;
 use App\Support\DataTables;
@@ -46,3 +47,9 @@ Route::controller(TableController::class)
 
 // Grafikler
 Route::get('/grafikler', AnalysisController::class)->name('analysis');
+
+// Terimler sözlüğü (veritabanında: glossary_terms) — /sozluk, /sozluk/yeni, /sozluk/{slug}/duzenle
+Route::resource('sozluk', GlossaryController::class)
+    ->parameters(['sozluk' => 'term'])
+    ->names('glossary')
+    ->except(['show']);

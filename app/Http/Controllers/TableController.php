@@ -10,6 +10,7 @@ use App\Support\FormRules;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -31,19 +32,31 @@ class TableController extends Controller
         $dir = $request->input('dir') === 'desc' ? 'desc' : 'asc';
         $query->orderBy("t.{$sort}", $dir)->orderBy('t.id');
 
-        // Büyük tablolarda (hits, edeps, ...) filtre yoksa toplam sayım pahalıdır
-        $narrow = $request->filled('event') || $request->filled('run');
+        // Her tabloda numaralı sayfalama. Büyük tablolarda (hits, edeps, ...) filtre
+        // yokken COUNT(*) milyonlarca satırı tarar; bu durumda toplam olarak
+        // PostgreSQL'in tuttuğu satır tahmini kullanılır (sayfa altında "≈" ile gösterilir).
         $perPage = min(200, max(10, (int) $request->input('per_page', 50)));
-        $rows = ($def['large'] && ! $narrow)
-            ? $query->simplePaginate($perPage)->withQueryString()
-            : $query->paginate($perPage)->withQueryString();
+        $page = max(1, (int) $request->input('page', 1));
+        $filtered = collect(['file', 'event', 'run', 'val'])->contains(fn ($k) => $request->filled($k));
+        $estimate = $this->estimate($table);
+        $approx = $def['large'] && ! $filtered && $estimate !== null && $estimate > 0;
+        $total = $approx ? $estimate : (clone $query)->reorder()->count();
+
+        $rows = new LengthAwarePaginator(
+            (clone $query)->forPage($page, $perPage)->get(),
+            $total,
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
 
         return view('tables.index', [
             'table' => $table,
             'def' => $def,
             'rows' => $rows,
             'files' => H5File::orderBy('name')->get(['id', 'name']),
-            'estimate' => $this->estimate($table),
+            'estimate' => $estimate,
+            'approx' => $approx,
             'event' => $request->filled('event') ? Event::find((int) $request->input('event')) : null,
             'sort' => $sort,
             'dir' => $dir,

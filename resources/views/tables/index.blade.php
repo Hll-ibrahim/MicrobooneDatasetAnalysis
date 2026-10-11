@@ -11,6 +11,9 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="tables"/>
+    <x-table-about :table="$table" :def="$def"/>
+
     {{-- ======================================================= filtreler --}}
     <div class="card card-royal mb-3">
         <div class="card-body">
@@ -105,7 +108,7 @@
                             <a href="{{ request()->fullUrlWithQuery(['event' => $r->event_id, 'page' => null]) }}" class="text-muted ms-1" title="Yalnızca bu olay"><i class="bi bi-funnel"></i></a>
                         </td>
                         @foreach($def['list'] as $c)
-                            @php($type = $def['columns'][$c][1])
+                            @php $type = $def['columns'][$c][1]; @endphp
                             <td class="{{ in_array($type, ['int', 'float'], true) ? 'num' : '' }}">
                                 @if($type === 'float')
                                     {{ tr_float($r->{$c}) }}
@@ -135,9 +138,7 @@
                 </tbody>
             </table>
         </div>
-        @if($rows->hasPages())
-            <div class="card-footer bg-white">{{ $rows->links() }}</div>
-        @endif
+        <div class="card-footer bg-white">{{ $rows->links('pagination.royal', ['approx' => $approx]) }}</div>
     </div>
     <p class="small text-muted mt-2"><i class="bi bi-info-circle"></i>
         Listede seçili sütunlar gösterilir; bir satırın tüm sütunlarını görmek ve değiştirmek için <i class="bi bi-pencil"></i> düğmesini kullanın.</p>

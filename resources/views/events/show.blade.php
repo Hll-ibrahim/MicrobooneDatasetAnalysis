@@ -21,22 +21,24 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="event"/>
+
     {{-- ======================================================= özet --}}
     <div class="row g-3">
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Nötrino" :value="$event->nuName()" icon="bi-stars"
+            <x-stat-card label="Nötrino" help="Bu olaydaki simüle nötrinonun türü (PDG kodu) ve etkileşim türü: yüklü akım (CC) ya da nötr akım (NC)." :value="$event->nuName()" icon="bi-stars"
                          :hint="($event->is_cc ? 'Yüklü akım (CC)' : ($event->is_cc === false ? 'Nötr akım (NC)' : '')).' · PDG '.$event->nu_pdg"/>
         </div>
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Nötrino enerjisi" :value="tr_num($event->nu_energy, 3).' GeV'" icon="bi-lightning-charge"
+            <x-stat-card label="Nötrino enerjisi" help="Gelen nötrinonun gerçek enerjisi ve etkileşimden çıkan elektronun (leptonun) enerjisi." :value="tr_num($event->nu_energy, 3).' GeV'" icon="bi-lightning-charge"
                          :hint="'E lepton '.tr_num($event->lep_energy, 3).' GeV'"/>
         </div>
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Hit" :value="tr_num($event->hit_count)" icon="bi-activity"
+            <x-stat-card label="Hit" help="Bu olayda tellerde ölçülen sinyal sayısı ve U, V, Y düzlemlerine dağılımı." :value="tr_num($event->hit_count)" icon="bi-activity"
                          :hint="'U '.tr_num($event->hit_count_u).' · V '.tr_num($event->hit_count_v).' · Y '.tr_num($event->hit_count_y)"/>
         </div>
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Nötrino hit oranı" :value="$event->nuHitFraction() !== null ? '%'.tr_num(100 * $event->nuHitFraction(), 1) : '—'"
+            <x-stat-card label="Nötrino hit oranı" help="Hit’lerin ne kadarının simüle nötrinodan geldiği (edep kaydı olanlar). Gerisi kozmik ışın ve gürültüdür." :value="$event->nuHitFraction() !== null ? '%'.tr_num(100 * $event->nuHitFraction(), 1) : '—'"
                          icon="bi-pie-chart" :hint="tr_num($event->nu_hit_count).' hit edep ile etiketli'"/>
         </div>
     </div>
@@ -67,14 +69,11 @@
                     </div>
                 @endforeach
             </div>
-            <div class="small text-muted mt-2">
-                <i class="bi bi-info-circle"></i>
-                “Gerçek” modunda <span class="legend-dot" style="background:#E8C35A"></span>altın noktalar simüle nötrinonun hit'leridir
-                (edep_table'da kaydı olanlar); gri noktalar gerçek veriden gelen kozmik ışın ve gürültüdür.
-                @if($best)
-                    Pandora'nın en yüksek nu_score'lu dilimi: <strong>#{{ $best->slice_id }}</strong> (nu_score {{ tr_float($best->nu_score) }}).
-                @endif
-            </div>
+            <x-chart-help key="event_display"/>
+            @if($best)
+                <div class="small text-muted mt-1">Bu olayda Pandora'nın en yüksek <x-term slug="nu-score">nu_score</x-term>'lu dilimi:
+                    <strong>#{{ $best->slice_id }}</strong> (nu_score {{ tr_float($best->nu_score) }}).</div>
+            @endif
         </div>
     </div>
 
@@ -106,13 +105,13 @@
             </div>
         </div>
         <div class="col-lg-7">
-            <x-chart-card id="chIntegral" title="Hit integral dağılımı" subtitle="düzlem başına · 800 ADC üstü son kutuda" :height="260"/>
+            <x-chart-card id="chIntegral" help="event_integral" title="Hit integral dağılımı" subtitle="düzlem başına · 800 ADC üstü son kutuda" :height="260"/>
         </div>
         <div class="col-lg-6">
-            <x-chart-card id="chPdg" title="Parçacık türleri (Geant4)" :height="260"/>
+            <x-chart-card id="chPdg" help="event_pdg" title="Parçacık türleri (Geant4)" :height="260"/>
         </div>
         <div class="col-lg-6">
-            <x-chart-card id="chPmt" title="PMT başına toplam fotoelektron" :height="260"/>
+            <x-chart-card id="chPmt" help="event_pmt" title="PMT başına toplam fotoelektron" :height="260"/>
         </div>
     </div>
 
@@ -131,6 +130,9 @@
         <div class="tab-content">
             {{-- parçacıklar --}}
             <div class="tab-pane fade show active" id="tParticles">
+                <p class="small text-muted px-3 pt-3 mb-2"><i class="bi bi-info-circle text-gold"></i>
+                    {{ \App\Support\DataTables::get('particles')['description'] }}
+                    <a href="{{ route('tables.index', ['table' => 'particles', 'event' => $event->id]) }}">Tablo ve sütun açıklamaları →</a></p>
                 <div class="table-responsive">
                     <table class="table table-royal table-sm table-hover align-middle">
                         <thead><tr><th>G4</th><th>Ana</th><th>Parçacık</th><th class="num">p [GeV/c]</th><th>Başlangıç süreci</th><th>Bitiş süreci</th><th>Kategori</th><th class="num">Başlangıç (x,y,z)</th><th></th></tr></thead>
@@ -157,6 +159,9 @@
             </div>
             {{-- dilimler --}}
             <div class="tab-pane fade" id="tSlices">
+                <p class="small text-muted px-3 pt-3 mb-2"><i class="bi bi-info-circle text-gold"></i>
+                    {{ \App\Support\DataTables::get('pandora_primaries')['description'] }}
+                    <a href="{{ route('tables.index', ['table' => 'pandora_primaries', 'event' => $event->id]) }}">Tablo ve sütun açıklamaları →</a></p>
                 <div class="table-responsive">
                     <table class="table table-royal table-sm table-hover align-middle">
                         <thead><tr><th>Dilim</th><th>PDG</th><th class="num">nu_score</th><th class="num">flashmatch</th><th class="num">Köşe (x,y,z) [cm]</th><th></th></tr></thead>
@@ -179,6 +184,9 @@
             </div>
             {{-- pfp --}}
             <div class="tab-pane fade" id="tPfps">
+                <p class="small text-muted px-3 pt-3 mb-2"><i class="bi bi-info-circle text-gold"></i>
+                    {{ \App\Support\DataTables::get('pandora_pfps')['description'] }}
+                    <a href="{{ route('tables.index', ['table' => 'pandora_pfps', 'event' => $event->id]) }}">Tablo ve sütun açıklamaları →</a></p>
                 <div class="table-responsive">
                     <table class="table table-royal table-sm table-hover align-middle">
                         <thead><tr><th>PFP</th><th>Tür</th><th class="num">İz/sağanak skoru</th><th class="num">Başlangıç (x,y,z) [cm]</th><th></th></tr></thead>
@@ -200,6 +208,9 @@
             </div>
             {{-- flaşlar --}}
             <div class="tab-pane fade" id="tFlashes">
+                <p class="small text-muted px-3 pt-3 mb-2"><i class="bi bi-info-circle text-gold"></i>
+                    {{ \App\Support\DataTables::get('opflashes')['description'] }}
+                    <a href="{{ route('tables.index', ['table' => 'opflashes', 'event' => $event->id]) }}">Tablo ve sütun açıklamaları →</a></p>
                 <div class="table-responsive">
                     <table class="table table-royal table-sm table-hover align-middle">
                         <thead><tr><th>Flaş</th><th class="num">Zaman [µs]</th><th class="num">Toplam PE</th><th class="num">y merkezi [cm]</th><th class="num">z merkezi [cm]</th><th class="num">z genişliği [cm]</th><th></th></tr></thead>

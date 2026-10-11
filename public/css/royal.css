@@ -274,3 +274,51 @@ h1, h2, h3, h4, h5, .serif {
     margin-top: 2rem;
 }
 .footer-royal a { color: var(--royal-gold-soft); }
+
+/* ---------------------------------------------------------------- açıklamalar ve sözlük */
+.term-link {
+    color: var(--royal-burgundy);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--royal-gold-deep);
+    cursor: help;
+}
+.term-link:hover { color: var(--royal-claret); border-bottom-style: solid; }
+
+.page-intro {
+    background: linear-gradient(90deg, #fff 0%, #fffaf0 100%);
+    border: 1px solid var(--royal-gold-soft);
+    border-left: 4px solid var(--royal-gold);
+}
+.page-intro p { color: var(--royal-ink); line-height: 1.6; }
+.page-intro-toggle[aria-expanded="false"] .bi-chevron-down { transform: rotate(-90deg); }
+
+.chart-help {
+    margin-top: .75rem;
+    padding: .6rem .75rem;
+    background: var(--royal-parchment);
+    border-radius: .45rem;
+    border-left: 3px solid var(--royal-gold);
+    font-size: .86rem;
+    line-height: 1.5;
+    color: var(--royal-ink);
+}
+.chart-help .bi { color: var(--royal-gold-deep); }
+.chart-help strong { color: var(--royal-wine); }
+
+.table-about p { line-height: 1.6; }
+.col-dict thead th { background: var(--royal-parchment); color: var(--royal-wine); font-size: .82rem; }
+
+.royal-pagination .pagination { flex-wrap: wrap; }
+
+.letter-index { display: flex; flex-wrap: wrap; gap: .3rem; }
+.letter-heading {
+    font-size: 1.8rem; margin: 1.2rem 0 .6rem; padding-bottom: .2rem;
+    border-bottom: 2px solid var(--royal-gold-soft); scroll-margin-top: 90px;
+}
+.glossary-term { border-left: 3px solid var(--royal-burgundy); scroll-margin-top: 90px; transition: box-shadow .4s; }
+.glossary-term.flash { box-shadow: 0 0 0 .3rem rgba(201, 166, 70, .45); }
+.glossary-short { font-weight: 600; color: var(--royal-wine); }
+.glossary-side { position: sticky; top: 84px; }
+.glossary-side .list-group-item.active { background: var(--royal-burgundy); border-color: var(--royal-burgundy); }
+.glossary-side .list-group-item.active .badge { background: var(--royal-gold); }
+.tooltip-inner { max-width: 320px; text-align: left; background: var(--royal-wine); }

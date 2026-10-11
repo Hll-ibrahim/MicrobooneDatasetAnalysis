@@ -21,6 +21,8 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="file"/>
+
     {{-- ======================================================= durum --}}
     <div class="card card-royal mb-3" id="statusCard" data-url="{{ route('files.status', $file) }}" data-busy="{{ $file->isBusy() ? 1 : 0 }}">
         <div class="card-body">
@@ -88,7 +90,7 @@
                         <label class="form-label mt-3">Aktarılacak HDF5 grupları</label>
                         <div class="row row-cols-1 row-cols-md-2 g-1">
                             @foreach($groupMap as $group => $table)
-                                @php $g = $groups->where('name', $group)->first(); @endphp
+                                @php $g = $groups->firstWhere('name', $group); @endphp
                                 <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input grp" type="checkbox" name="groups[]" value="{{ $group }}" id="g_{{ $group }}"
@@ -203,13 +205,13 @@
             </div>
             @if($charts)
                 <div class="col-lg-7">
-                    <x-chart-card id="chFileEnergy" title="Nötrino enerjisi (bu dosya)" :height="230"/>
+                    <x-chart-card id="chFileEnergy" help="energy" title="Nötrino enerjisi (bu dosya)" :height="230"/>
                 </div>
                 <div class="col-lg-7">
-                    <x-chart-card id="chFileHits" title="Olay başına hit sayısı" :height="230"/>
+                    <x-chart-card id="chFileHits" help="file_hits" title="Olay başına hit sayısı" :height="230"/>
                 </div>
                 <div class="col-lg-5">
-                    <x-chart-card id="chFilePlanes" title="Düzlem başına hit" :height="230"/>
+                    <x-chart-card id="chFilePlanes" help="planes" title="Düzlem başına hit" :height="230"/>
                 </div>
             @endif
         </div>

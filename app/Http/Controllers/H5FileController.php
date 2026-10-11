@@ -142,8 +142,6 @@ class H5FileController extends Controller
             $dbColumns[$table] = Schema::getColumnListing($table);
         }
 
-
-       
         return view('files.show', [
             'file' => $file,
             'groupMap' => $groupMap,

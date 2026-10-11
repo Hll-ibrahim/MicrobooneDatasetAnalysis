@@ -15,7 +15,7 @@
     @stack('head')
 </head>
 <body>
-@php($childTables = \App\Support\DataTables::children())
+@php $childTables = \App\Support\DataTables::children(); @endphp
 <nav class="navbar navbar-expand-lg navbar-dark navbar-royal sticky-top">
     <div class="container-xl">
         <a class="navbar-brand" href="{{ route('dashboard') }}">
@@ -65,6 +65,11 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->routeIs('analysis')) active @endif" href="{{ route('analysis') }}">
                         <i class="bi bi-graph-up"></i> Grafikler
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs('glossary.*')) active @endif" href="{{ route('glossary.index') }}">
+                        <i class="bi bi-journal-bookmark"></i> Sözlük
                     </a>
                 </li>
             </ul>

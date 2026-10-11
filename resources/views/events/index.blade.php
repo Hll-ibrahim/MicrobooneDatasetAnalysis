@@ -10,6 +10,9 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="events"/>
+    <x-table-about table="events" :def="\App\Support\DataTables::get('events')"/>
+
     {{-- ======================================================= filtreler --}}
     <div class="card card-royal mb-3">
         <div class="card-body">
@@ -73,16 +76,16 @@
         <div class="col-md-4">
             <div class="row g-3">
                 <div class="col-6 col-md-12">
-                    <x-stat-card label="Eşleşen olay" :value="tr_num($summary->n)" icon="bi-collection" :hint="tr_num($summary->runs).' run'"/>
+                    <x-stat-card label="Eşleşen olay" help="Yukarıdaki filtrelere uyan olay sayısı ve bunların kaç farklı run’dan geldiği." :value="tr_num($summary->n)" icon="bi-collection" :hint="tr_num($summary->runs).' run'"/>
                 </div>
                 <div class="col-6 col-md-12">
-                    <x-stat-card label="Ortalama nötrino enerjisi" :value="$summary->e !== null ? tr_num($summary->e, 2).' GeV' : '—'" icon="bi-lightning"
+                    <x-stat-card label="Ortalama nötrino enerjisi" help="Filtrelenen olaylardaki nötrinoların ortalama gerçek enerjisi (GeV) ve olay başına ortalama hit sayısı." :value="$summary->e !== null ? tr_num($summary->e, 2).' GeV' : '—'" icon="bi-lightning"
                                  :hint="$summary->h !== null ? 'olay başına '.tr_num($summary->h).' hit' : null"/>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
-            <x-chart-card id="chEvEnergy" title="Eν dağılımı (filtreye göre)" :height="190"/>
+            <x-chart-card id="chEvEnergy" help="events_energy" title="Eν dağılımı (filtreye göre)" :height="190"/>
         </div>
     </div>
 
@@ -141,9 +144,7 @@
                 </tbody>
             </table>
         </div>
-        @if($events->hasPages())
-            <div class="card-footer bg-white">{{ $events->links() }}</div>
-        @endif
+        <div class="card-footer bg-white">{{ $events->links() }}</div>
     </div>
 @endsection
 

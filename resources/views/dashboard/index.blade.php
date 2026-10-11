@@ -11,21 +11,23 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="dashboard"/>
+
     <div class="row g-3">
         <div class="col-6 col-lg-3">
-            <x-stat-card label="H5 dosyası" :value="number_format($stats['files'], 0, ',', '.')" icon="bi-file-earmark-binary"
+            <x-stat-card label="H5 dosyası" help="Sisteme kaydedilmiş .h5 dosyası sayısı. “Aktarıldı” olanların verisi veritabanındadır." :value="number_format($stats['files'], 0, ',', '.')" icon="bi-file-earmark-binary"
                          :hint="$stats['completed'].' tanesi aktarıldı'"/>
         </div>
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Olay" :value="number_format($stats['events'], 0, ',', '.')" icon="bi-bullseye"
+            <x-stat-card label="Olay" help="Veritabanındaki olay sayısı. Her olay, dedektörün 3,2 ms süren bir kaydı ve içine eklenmiş simüle bir nötrino etkileşimidir." :value="number_format($stats['events'], 0, ',', '.')" icon="bi-bullseye"
                          :hint="$stats['runs'].' farklı run'"/>
         </div>
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Hit" :value="number_format($stats['hits'], 0, ',', '.')" icon="bi-activity"
+            <x-stat-card label="Hit" help="Tellerde ölçülen sinyal darbelerinin toplamı. Nötrino hit oranı, bunların ne kadarının simüle nötrinodan geldiğini gösterir (geri kalanı kozmik ışın)." :value="number_format($stats['hits'], 0, ',', '.')" icon="bi-activity"
                          :hint="$stats['nu_frac'] !== null ? 'Nötrino hit oranı %'.number_format(100 * $stats['nu_frac'], 1, ',', '.') : null"/>
         </div>
         <div class="col-6 col-lg-3">
-            <x-stat-card label="Parçacık" :value="number_format($stats['particles'], 0, ',', '.')" icon="bi-diagram-3"
+            <x-stat-card label="Parçacık" help="Simülasyonda (Geant4) üretilen parçacık sayısı. Altta Pandora dilimleri ve ışık flaşları sayılır." :value="number_format($stats['particles'], 0, ',', '.')" icon="bi-diagram-3"
                          :hint="number_format($stats['slices'], 0, ',', '.').' Pandora dilimi · '.number_format($stats['flashes'], 0, ',', '.').' flaş'"/>
         </div>
     </div>
@@ -45,17 +47,17 @@
         <div class="ornament">Genel bakış</div>
         <div class="row g-3">
             <div class="col-lg-8">
-                <x-chart-card id="chEnergy" title="Nötrino enerjisi dağılımı"
+                <x-chart-card id="chEnergy" help="energy" title="Nötrino enerjisi dağılımı"
                               :subtitle="$stats['e_mean'] !== null ? 'ortalama '.number_format($stats['e_mean'], 2, ',', '.').' GeV' : null"/>
             </div>
             <div class="col-lg-4">
-                <x-chart-card id="chPdg" title="Nötrino türü"/>
+                <x-chart-card id="chPdg" help="pdg" title="Nötrino türü"/>
             </div>
             <div class="col-lg-4">
-                <x-chart-card id="chPlanes" title="Düzlem başına hit" subtitle="U · V · Y"/>
+                <x-chart-card id="chPlanes" help="planes" title="Düzlem başına hit" subtitle="U · V · Y"/>
             </div>
             <div class="col-lg-8">
-                <x-chart-card id="chRuns" title="Run başına olay sayısı"/>
+                <x-chart-card id="chRuns" help="runs" title="Run başına olay sayısı"/>
             </div>
         </div>
     @endif

@@ -8,6 +8,8 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="files"/>
+
     {{-- Python ortamı --}}
     @if($python[0])
         <div class="alert alert-royal d-flex align-items-center gap-2 py-2">

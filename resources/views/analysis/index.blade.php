@@ -17,6 +17,8 @@
 @endsection
 
 @section('content')
+    <x-page-intro key="analysis"/>
+
     @if($nEvents === 0)
         <div class="card card-royal">
             <div class="empty-state">
@@ -35,40 +37,40 @@
 
         <div class="ornament">Nötrino etkileşimi (gerçek bilgi)</div>
         <div class="row g-3">
-            <div class="col-lg-6"><x-chart-card id="aEnergy" title="Nötrino enerjisi" subtitle="event_table.nu_energy"/></div>
-            <div class="col-lg-6"><x-chart-card id="aLep" title="Lepton enerjisi ve nötrino enerjisi" subtitle="rastgele en çok 2 500 olay"/></div>
-            <div class="col-lg-6"><x-chart-card id="aVtxZX" title="Etkileşim noktası — üstten (z, x)" subtitle="kesikli çizgi: TPC sınırı"/></div>
-            <div class="col-lg-6"><x-chart-card id="aVtxZY" title="Etkileşim noktası — yandan (z, y)" subtitle="kesikli çizgi: TPC sınırı"/></div>
+            <div class="col-lg-6"><x-chart-card id="aEnergy" help="energy" title="Nötrino enerjisi" subtitle="event_table.nu_energy"/></div>
+            <div class="col-lg-6"><x-chart-card id="aLep" help="lep_vs_nu" title="Lepton enerjisi ve nötrino enerjisi" subtitle="rastgele en çok 2 500 olay"/></div>
+            <div class="col-lg-6"><x-chart-card id="aVtxZX" help="vtx_zx" title="Etkileşim noktası — üstten (z, x)" subtitle="kesikli çizgi: TPC sınırı"/></div>
+            <div class="col-lg-6"><x-chart-card id="aVtxZY" help="vtx_zy" title="Etkileşim noktası — yandan (z, y)" subtitle="kesikli çizgi: TPC sınırı"/></div>
         </div>
 
         <div class="ornament">Hit'ler</div>
         <div class="row g-3">
-            <div class="col-lg-6"><x-chart-card id="aHits" title="Olay başına hit sayısı" subtitle="%99 üstü son kutuda"/></div>
-            <div class="col-lg-6"><x-chart-card id="aNuFrac" title="Nötrino hit oranı" subtitle="edep'i olan hit / tüm hit"/></div>
-            <div class="col-lg-6"><x-chart-card id="aIntegral" title="Hit integrali (U / V / Y)" subtitle="800 ADC üstü son kutuda"/></div>
-            <div class="col-lg-6"><x-chart-card id="aTime" title="Hit zamanı (U / V / Y)" subtitle="okuma penceresi 6 400 tick = 3,2 ms"/></div>
+            <div class="col-lg-6"><x-chart-card id="aHits" help="file_hits" title="Olay başına hit sayısı" subtitle="%99 üstü son kutuda"/></div>
+            <div class="col-lg-6"><x-chart-card id="aNuFrac" help="nufrac" title="Nötrino hit oranı" subtitle="edep'i olan hit / tüm hit"/></div>
+            <div class="col-lg-6"><x-chart-card id="aIntegral" help="integral" title="Hit integrali (U / V / Y)" subtitle="800 ADC üstü son kutuda"/></div>
+            <div class="col-lg-6"><x-chart-card id="aTime" help="hit_time" title="Hit zamanı (U / V / Y)" subtitle="okuma penceresi 6 400 tick = 3,2 ms"/></div>
         </div>
 
         <div class="ornament">Pandora rekonstrüksiyonu</div>
         <div class="row g-3">
-            <div class="col-lg-5"><x-chart-card id="aNuScore" title="nu_score dağılımı" subtitle="-999 hariç"/></div>
-            <div class="col-lg-3"><x-chart-card id="aSentinel" title="nu_score geçerliliği"/></div>
-            <div class="col-lg-4"><x-chart-card id="aPfp" title="PFP türleri" subtitle="iz / sağanak"/></div>
-            <div class="col-lg-12"><x-chart-card id="aFlashmatch" title="Flaş eşleştirme skoru" subtitle="küçük = iyi eşleşme" :height="230"/></div>
+            <div class="col-lg-5"><x-chart-card id="aNuScore" help="nu_score" title="nu_score dağılımı" subtitle="-999 hariç"/></div>
+            <div class="col-lg-3"><x-chart-card id="aSentinel" help="sentinel" title="nu_score geçerliliği"/></div>
+            <div class="col-lg-4"><x-chart-card id="aPfp" help="pfp_pdg" title="PFP türleri" subtitle="iz / sağanak"/></div>
+            <div class="col-lg-12"><x-chart-card id="aFlashmatch" help="flashmatch" title="Flaş eşleştirme skoru" subtitle="küçük = iyi eşleşme" :height="230"/></div>
         </div>
 
         <div class="ornament">Parçacıklar (Geant4)</div>
         <div class="row g-3">
-            <div class="col-lg-5"><x-chart-card id="aPdg" title="En sık parçacık türleri" :height="320"/></div>
-            <div class="col-lg-4"><x-chart-card id="aProcess" title="Üretim süreci" :height="320"/></div>
-            <div class="col-lg-3"><x-chart-card id="aCategory" title="Kategori" :height="320"/></div>
+            <div class="col-lg-5"><x-chart-card id="aPdg" help="particle_pdg" title="En sık parçacık türleri" :height="320"/></div>
+            <div class="col-lg-4"><x-chart-card id="aProcess" help="process" title="Üretim süreci" :height="320"/></div>
+            <div class="col-lg-3"><x-chart-card id="aCategory" help="category" title="Kategori" :height="320"/></div>
         </div>
 
         <div class="ornament">Optik sistem (PMT)</div>
         <div class="row g-3">
-            <div class="col-lg-6"><x-chart-card id="aFlashTime" title="Flaş zamanı [µs]"/></div>
-            <div class="col-lg-6"><x-chart-card id="aFlashPe" title="Flaş başına toplam PE" subtitle="%98 üstü son kutuda"/></div>
-            <div class="col-12"><x-chart-card id="aPmt" title="PMT kanalı başına toplam fotoelektron" :height="240"/></div>
+            <div class="col-lg-6"><x-chart-card id="aFlashTime" help="flash_time" title="Flaş zamanı [µs]"/></div>
+            <div class="col-lg-6"><x-chart-card id="aFlashPe" help="flash_pe" title="Flaş başına toplam PE" subtitle="%98 üstü son kutuda"/></div>
+            <div class="col-12"><x-chart-card id="aPmt" help="pmt" title="PMT kanalı başına toplam fotoelektron" :height="240"/></div>
         </div>
     @endif
 @endsection

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
-@php($editing = $row !== null)
-
+@php $editing = $row !== null; @endphp
 @section('title', ($editing ? 'Düzenle: ' : 'Yeni: ').$def['singular'])
 
 @section('header')

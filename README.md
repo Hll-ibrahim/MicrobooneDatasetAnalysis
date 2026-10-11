@@ -29,6 +29,15 @@ dosyalarını **PostgreSQL**'e aktaran, verileri **web arayüzünden düzenlemey
 | Olay ayrıntısı | `/olaylar/{id}` | **Olay görüntüsü** (U/V/Y düzlemleri, tel × zaman; renk: gerçek ν/kozmik, Pandora en iyi dilim, yük), hit integral dağılımı, parçacık türleri, PMT başına PE, bağlı tablolar |
 | Tablolar | `/tablolar/{tablo}` | hits, edeps, particles, pandora_*, op* için genel tarayıcı: dosya/olay/run/sütun koşulu filtresi, sıralama, **düzenleme formu**, CSV indir |
 | Grafikler | `/grafikler` | 18 fizik grafiği (enerji, köşe dağılımları, ν hit oranı, nu_score, flashmatch, PDG, süreç, flaş zamanı/PE, PMT …), dosyaya göre filtre |
+| Sözlük | `/sozluk` | 63 terim (8 kategori), arama, A–Z dizini; **ekle / düzenle / sil** (veritabanında `glossary_terms`) |
+
+**Açıklamalar:** Her sayfanın başında katlanabilir bir "Bu sayfa nedir?" kutusu, her tablo sayfasında
+tablonun açıklaması + bir paragraf + **sütun sözlüğü**, her grafiğin altında **"Ne gösteriyor? / Nasıl okunur?"**
+metni, özet kartlarında ⓘ ipucu vardır. Metinlerdeki altı noktalı terimlerin üzerine gelince kısa tanım
+görünür, tıklayınca sözlükteki maddeye gidilir. Metinler `app/Support/Help.php` içindedir;
+`[[slug]]` ya da `[[slug|metin]]` yazımı otomatik olarak sözlük bağlantısına dönüşür.
+Tüm tablolarda sayfalama her zaman görünür; büyük tablolarda filtre yokken toplam satır
+PostgreSQL istatistiğinden tahmin edilir ("≈" işaretiyle).
 
 `docs/ekranlar/` klasöründe sentetik örnek veriyle alınmış ekran görüntüleri vardır.
 
@@ -44,6 +53,7 @@ açılır: adında `wire` geçenler `_u/_v/_y` (düzlem), diğerleri `_x/_y/_z` 
 |---|---|---|---|
 | — | `h5_files` | kayıtlı dosya, şema (jsonb), içe aktarma durumu | — |
 | `event_table` | `events` | olay + simüle νe etkileşimi (+ `label`, `notes`, özet sayılar) | 1 |
+| — | `glossary_terms` | terimler sözlüğü (migration ile varsayılan 63 terim yüklenir) | — |
 | `hit_table` | `hits` | tel düzlemindeki darbe | ≈ 16 800 |
 | `edep_table` | `edeps` | hit ↔ parçacık gerçek enerji bağı | ≈ binler |
 | `particle_table` | `particles` | Geant4 parçacığı | ≈ 800 |
@@ -188,7 +198,7 @@ app/
                       EventStats (özet sayılar), Charts (SQL histogramları)
   Support/            DataTables (grup ↔ tablo ↔ sütun etiketleri), FormRules, Pdg
 config/h5.php         Python yolu, klasörler, parti boyutları, dedektör sınırları
-database/migrations/  11 tablo
+database/migrations/  12 tablo (+ terimler sözlüğü)
 resources/views/      layouts, components (page-header, stat-card, chart-card…), dashboard,
                       files, events, tables, analysis
 public/css/royal.css  tema   ·   public/js/royal-charts.js  Chart.js kısayolları + olay görüntüsü

@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Görünümlerdeki tr_num() / tr_float() yardımcıları. composer.json → autoload.files
+        // ile de yüklenir; composer.json değiştirilmiş ya da dump-autoload yapılmamışsa
+        // diye burada da güvenceye alınır.
+        require_once app_path('helpers.php');
     }
 
     /**
@@ -22,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+        // Tek sayfa olsa bile her zaman görünen, numaralı sayfalama
+        Paginator::defaultView('pagination.royal');
 
         // Türkçe URL'ler: /olaylar/yeni, /olaylar/5/duzenle
         Route::resourceVerbs([
