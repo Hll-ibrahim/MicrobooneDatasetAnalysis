@@ -88,7 +88,7 @@
                         <label class="form-label mt-3">Aktarılacak HDF5 grupları</label>
                         <div class="row row-cols-1 row-cols-md-2 g-1">
                             @foreach($groupMap as $group => $table)
-                                @php($g = $groups->where('name', $group)->first())
+                                @php $g = $groups->where('name', $group)->first(); @endphp
                                 <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input grp" type="checkbox" name="groups[]" value="{{ $group }}" id="g_{{ $group }}"
@@ -219,7 +219,7 @@
     <div class="ornament">HDF5 şeması</div>
     <div class="accordion" id="schemaAcc">
         @foreach($groups as $i => $g)
-            @php($table = $groupMap[$g['name']] ?? null)
+            @php $table = $groupMap[$g['name']] ?? null; @endphp
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sg{{ $i }}">
